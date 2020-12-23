@@ -1,0 +1,41 @@
+{
+    "name": "siteorigin/laravel-elements",
+    "description": "Some very simple HTML elements wrapped as Laravel components.",
+    "type": "package",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Greg Priday",
+            "email": "greg@siteorigin.com"
+        }
+    ],
+    "require": {
+        "php": "^7.4",
+        "ext-imagick": "*",
+        "laravel/framework": "^8.0",
+        "spatie/image-optimizer": "^1.3",
+        "imgix/imgix-php": "^3.3"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8",
+        "orchestra/testbench": "^6.7"
+
+    },
+    "autoload": {
+        "psr-4": {
+            "SiteOrigin\\Elements\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "SiteOrigin\\Elements\\Tests\\": "tests/"
+        }
+    },
+    "extras" : {
+        "laravel" : {
+            "providers": [
+                "SiteOrigin\\Elements\\ElementsServiceProvider"
+            ]
+        }
+    }
+}
