@@ -31,19 +31,22 @@ class Imgix
         $src = parse_url($attributes['src']);
 
         $defaultParams = config('elements.imgix.default_params', []);
-        $attributeParams = [
-            'w' => $attributes['width'],
-            'h' => $attributes['height'],
-        ];
+        if(!empty($attributes['width']) && !empty($attributes['height'])){
+            $attributeParams = ['ar' => round($attributes['width']/$attributes['height'], 3)];
+        }
+        else {
+            $attributeParams = ['w' => $attributes['width'], 'h' => $attributes['height']];
+        }
         $attributeParams = array_filter($attributeParams);
         parse_str($src['query'] ?? '', $srcParams);
-        parse_str($params['params'], $elementParams);
+        parse_str($params['params'] ?? '', $elementParams);
 
         $imgixParams = array_merge($defaultParams, $attributeParams, $srcParams, $elementParams);
         $attributes['src'] = $this->builder->createURL($src['path'], $imgixParams);
 
         if(isset($params['srcset'])) {
-            $attributes['srcset'] = $this->builder->createSrcSet($src['path'], $imgixParams);
+            parse_str($params['srcset'] ?? '', $srcsetOptions);
+            $attributes['srcset'] = $this->builder->createSrcSet($src['path'], $imgixParams, $srcsetOptions);
         }
 
         return $attributes;

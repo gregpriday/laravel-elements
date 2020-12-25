@@ -12,9 +12,10 @@
     "require": {
         "php": "^7.4",
         "ext-imagick": "*",
+        "ext-json": "*",
         "laravel/framework": "^8.0",
         "spatie/image-optimizer": "^1.3",
-        "imgix/imgix-php": "^3.3"
+        "imgix/imgix-php": "^3.3",
     },
     "require-dev": {
         "phpunit/phpunit": "^8",

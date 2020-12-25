@@ -12,7 +12,6 @@ abstract class Base extends Component
     public function filterWithAddons($filter, $data)
     {
         if(empty($this->attributes)) return $data;
-        if(empty($this->addons))
 
         $addons = [];
         foreach($this->attributes->getAttributes() as $k => $v) {
@@ -20,6 +19,7 @@ abstract class Base extends Component
 
             [$addon, $param] = explode(':', $k);
             if (empty($addons[$addon])) $addons[$addon] = [];
+            $param = $param ?: 'use';
 
             $addons[$addon][$param] = $v;
         }
@@ -31,7 +31,8 @@ abstract class Base extends Component
             if(class_exists($class) && method_exists($class, $method)) {
                 if(empty($this->addons[$name])) $this->addons[$name] = (new $class($this));
 
-                $data = $this->addons[$name]->{$method}($data, $params);
+                // Pass some data, the addon params as well as all other addon params
+                $data = $this->addons[$name]->{$method}($data, $params, $addons);
             }
         }
 

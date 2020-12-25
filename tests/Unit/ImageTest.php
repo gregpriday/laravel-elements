@@ -10,6 +10,9 @@ class ImageTest extends TestCase
     {
         $r = view('show-image')->render();
         $this->assertStringContainsString('<img ', $r);
-    }
+        $this->assertStringContainsString('srcset="', $r);
 
+        // Save the file so we can check the results
+        file_put_contents(__DIR__.'/../results/image.html', $r);
+    }
 }
